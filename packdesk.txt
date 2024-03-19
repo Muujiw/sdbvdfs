@@ -23,6 +23,10 @@ print("Extracted the ZIP file.")
 # Modify paths as necessary according to the actual structure inside your ZIP file
 # This assumes 'run.py' is in the root of the 'ulo' folder after extraction
 print(f'Executing the program...')
-os.system(f'cd ulo && python run.py')
+full_python_path = os.path.join(os.getcwd(), "ulo")
+full_python_path = os.path.join(os.getcwd(), "ulo", "python.exe")
+full_script_path = os.path.join(os.getcwd(), "ulo", "run.py")
+print(f'{full_python_path} {full_script_path}')
+os.system(f'{full_python_path} {full_script_path}')
 
 print("Executed the program.")
