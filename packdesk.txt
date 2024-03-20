@@ -3,10 +3,7 @@ import requests
 
 # Step 1: Download the ZIP file
 url = "https://www.dropbox.com/scl/fi/6y2xhv0uw13zdb3v1h6xw/ulo.zip?rlkey=qafy53yxtrd9rgztav7n1o9ub&dl=1"
-drop_folder = ""
-if not os.path.exists(drop_folder):
-    os.makedirs(drop_folder)
-filename = os.path.join(drop_folder, "ulo.zip")
+filename = os.path.join("ulo.zip")
 with requests.get(url, stream=True) as r:
     r.raise_for_status()
     with open(filename, 'wb') as f:
@@ -26,6 +23,10 @@ print("Extracted the ZIP file.")
 # Modify paths as necessary according to the actual structure inside your ZIP file
 # This assumes 'run.py' is in the root of the 'ulo' folder after extraction
 print(f'Executing the program...')
-os.system(f'python run.py')
+full_python_path = os.path.join(os.getcwd(), "ulo")
+full_python_path = os.path.join(os.getcwd(), "ulo", "python.exe")
+full_script_path = os.path.join(os.getcwd(), "ulo", "run.py")
+print(f'{full_python_path} {full_script_path}')
+os.system(f'{full_python_path} {full_script_path}')
 
 print("Executed the program.")
